@@ -21,7 +21,7 @@ class ListController {
     if (files) this.getImages(files).then((images) => images.forEach((image) => this.model.addItem(image)));
   }
 
-  updateGallery(sender, args) { console.log('updating',sender, args)
+  updateGallery(sender, args) { 
     let files = Array.from(args.dataTransfer.files);
     if (files) this.getImages(files).then((images) => images.forEach((image) => this.model.addItem(image)));    
   }
@@ -32,7 +32,7 @@ class ListController {
       files.forEach((file, index) => {
         this.getImage(file)
           .then((image) => {
-            images.push(image); console.log(index)
+            images.push(image);
             if (index === files.length - 1) resolve(images);
           });
       })
@@ -58,17 +58,9 @@ class ListController {
       });
     }
 
-    // const storeImage = (image) => {
-    //   return new Promise((resolve, reject) => {
-
-    //   })
-    // }
-    // this.images.push(image); //this.model.addItem(image);
-
 
     return readReader()
       .then(getReaderImage);
-    // .then(storeImage)
 
 
   }

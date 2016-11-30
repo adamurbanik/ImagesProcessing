@@ -39,7 +39,9 @@ class ListView {
   }
 
   rebuildList() {
-    let images = this.model.getItems();
+    let images = this.model.getItems(); console.log(images.length);
+    this.elements.gallery.innerHTML = '';
+
     images.forEach((image) => {
       let dimensions = this.calculateDimensions(image);
       this.drawImage(image, dimensions);
@@ -63,7 +65,6 @@ class ListView {
     thumb.onclick = (event) => openImage();
 
     let gallery = this.elements.gallery;
-    console.log(gallery);
     gallery.appendChild(thumb);
 
   }
