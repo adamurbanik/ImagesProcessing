@@ -8,14 +8,26 @@
 
 </head>
 <body>
-    <main>
-        <label>Please upload files</label></body>
-        <input type='file' accept='.png, .jpg' id='input_element' multiple><br><br>
-    </main>
-    <div id='gallery'></div>
+    <div class="container">
+        <header>
+            <h1>Gallery of Images</h1>
+        </header>
 
-    <footer>
-    </footer>
+        <nav>
+        <ul>
+            <li>
+                <label>Please upload files</label></li>
+                <input class='truncate' type='file' accept='.png, .jpg' id='input_element' multiple>
+            </li>
+        </ul>
+        </nav>
+        
+        <article id='gallery' class="gallery">
+        </article>
+        
+        <footer> Footer here
+        </footer>
+    </div>
 
     <script type='text/javascript' src='src/models/event.js'></script>
     <script type='text/javascript' src='src/controllers/list-controller.js'></script>
