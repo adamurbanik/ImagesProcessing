@@ -5,13 +5,15 @@
  */
 
 class ListView {
-  constructor(model, elements) {
+  constructor(model, elements, processImages) {
     this.model = model;
     this.elements = elements;
     this.listModified = new Event(this);
     this.inputButtonClicked = new Event(this);
     this.galleryModified = new Event(this);
 
+    this.processImages = processImages;
+    
     this.attachModelListeners();
     this.attachHtmlListeners();
   }
@@ -39,68 +41,15 @@ class ListView {
   }
 
   rebuildList() {
-    let images = this.model.getItems(); 
+    let images = this.model.getItems();
     this.elements.gallery.innerHTML = '';
-
-    images.forEach((image) => {
-      let dimensions = this.calculateDimensions(image);
-      this.drawImage(image, dimensions);
-    })
+    images.forEach((image) => this.drawImage(image))
   }
 
-  drawImage(image, dimensions) {
-    let lowCanvas = document.createElement("canvas");
-    lowCanvas.width = 150;
-    lowCanvas.height = 150;
-    let ctx = lowCanvas.getContext("2d");
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(0, 0, lowCanvas.width, lowCanvas.height);
-    ctx.drawImage(image, dimensions["positionX"], dimensions["positionY"], dimensions["width"], dimensions["height"]);
-    let dataURL = lowCanvas.toDataURL();
-
-    var thumb = document.createElement("img");
-    thumb.src = dataURL;
-    thumb.alt = image.src;
-
+  drawImage(image) {
+    let thumb = this.processImages.createImage(image);
     thumb.onclick = (event) => this.openImage(event);
-
-    let gallery = this.elements.gallery;
-    gallery.appendChild(thumb);
-
-  }
-
-  calculateDimensions(img) {
-    let maxWidth = 150;
-    let maxHeight = 150;
-    let ratio = 0;
-    let width = img.width;
-    let height = img.height;
-    let positionX = 0;
-    let positionY = 0;
-
-    if (width > maxWidth) {
-      ratio = maxWidth / width;
-      height = height * ratio;
-      width = width * ratio;
-    }
-    if (height > maxHeight) {
-      ratio = maxHeight / height;
-      width = width * ratio;
-      height = height * ratio;
-    }
-
-    positionY = (maxHeight - height) / 2;
-    positionX = (maxWidth - width) / 2;
-
-    let dimensionsObj = {
-      "width": width,
-      "height": height,
-      "positionY": positionY,
-      "positionX": positionX
-    };
-
-    return dimensionsObj;
-
+    this.elements.gallery.appendChild(thumb);
   }
 
   openImage(event) {

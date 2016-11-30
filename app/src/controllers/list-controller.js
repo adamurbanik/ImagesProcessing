@@ -4,10 +4,10 @@
  */
 
 class ListController {
-  constructor(model, view) {
+  constructor(model, view, processImages) {
     this.model = model;
     this.view = view;
-    this.processImages = new ProcessImages();
+    this.processImages = processImages;
     this.attachViewListeners();
   }
 
@@ -21,13 +21,13 @@ class ListController {
     if (files) this.processFiles(files);
   }
 
-  updateGallery(sender, args) { 
+  updateGallery(sender, args) {
     let files = Array.from(args.dataTransfer.files);
-    if (files) this.processFiles(files);    
+    if (files) this.processFiles(files);
   }
 
-  processFiles(files){
-    this.processImages.getImages(files).then((images) => images.forEach((image) => this.model.addItem(image)));    
+  processFiles(files) {
+    this.processImages.getImages(files).then((images) => images.forEach((image) => this.model.addItem(image)));
   }
 
 }
