@@ -62,7 +62,7 @@ class ListView {
     thumb.src = dataURL;
     thumb.alt = image.src;
 
-    thumb.onclick = (event) => openImage();
+    thumb.onclick = (event) => this.openImage(event);
 
     let gallery = this.elements.gallery;
     gallery.appendChild(thumb);
