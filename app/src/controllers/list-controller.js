@@ -7,7 +7,7 @@ class ListController {
   constructor(model, view) {
     this.model = model;
     this.view = view;
-
+    this.processImages = new ProcessImages();
     this.attachViewListeners();
   }
 
@@ -18,50 +18,16 @@ class ListController {
 
   addItem(sender) {
     let files = Array.from(sender.elements.inputButton.files);
-    if (files) this.getImages(files).then((images) => images.forEach((image) => this.model.addItem(image)));
+    if (files) this.processFiles(files);
   }
 
   updateGallery(sender, args) { 
     let files = Array.from(args.dataTransfer.files);
-    if (files) this.getImages(files).then((images) => images.forEach((image) => this.model.addItem(image)));    
+    if (files) this.processFiles(files);    
   }
 
-  getImages(files) {
-    return new Promise((resolve, reject) => {
-      let images = [];
-      files.forEach((file, index) => {
-        this.getImage(file)
-          .then((image) => {
-            images.push(image);
-            if (index === files.length - 1) resolve(images);
-          });
-      })
-    })
-
+  processFiles(files){
+    this.processImages.getImages(files).then((images) => images.forEach((image) => this.model.addItem(image)));    
   }
 
-  getImage(file) {
-    const readReader = () => {
-      return new Promise((resolve, reject) => {
-        let reader = new FileReader();
-        let url = reader.readAsDataURL(file);
-        reader.onload = (event) => resolve(event);
-        reader.onerror = (err) => reject(err);
-      })
-    }
-
-    const getReaderImage = (event) => {
-      return new Promise((resolve, reject) => {
-        let img = new Image();
-        img.onload = (event) => resolve(event.path[0]);
-        img.src = event.target.result;
-      });
-    }
-
-
-    return readReader()
-      .then(getReaderImage);
-
-
-  }
 }

@@ -39,7 +39,7 @@ class ListView {
   }
 
   rebuildList() {
-    let images = this.model.getItems(); console.log(images.length);
+    let images = this.model.getItems(); 
     this.elements.gallery.innerHTML = '';
 
     images.forEach((image) => {
