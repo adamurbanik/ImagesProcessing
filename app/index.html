@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'/>
+    <title>Images Processing</title>
+
+    <link rel='stylesheet' type='text/css' href='css/style.css'>
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Gallery of Images</h1>
+        </header>
+
+        <nav>
+        <ul>
+            <li>
+                <label>Please upload files</label></li>
+                <input class='truncate' type='file' accept='.png, .jpg' id='input_element' multiple>
+            </li>
+        </ul>
+        </nav>
+        
+        <article id='gallery' class="gallery">
+        </article>
+        
+        <footer> Footer here
+        </footer>
+    </div>
+
+    <script type='text/javascript' src='src/models/event.js'></script>
+    <script type='text/javascript' src='src/models/process-images.js'></script>    
+    <script type='text/javascript' src='src/controllers/list-controller.js'></script>
+    <script type='text/javascript' src='src/views/list-view.js'></script>
+    <script type='text/javascript' src='src/models/list-model.js'></script>
+    <script type='text/javascript' src='app.js'></script>    
+
+</body>   
+</html>
